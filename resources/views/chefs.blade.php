@@ -67,8 +67,8 @@
                   <li class="nav-item"><a class="nav-link " href="/">Home</a></li>
                   <li class="nav-item"><a class="nav-link " href="/about">About</a></li>
                   <li class="nav-item"><a class="nav-link" href="/menu">Menu</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/chefs">Chefs</a></li>
-                  <li class="nav-item"><a class="nav-link active" href="/reservation">Reservation</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="/chefs">Chefs</a></li>
+                  <li class="nav-item"><a class="nav-link " href="/reservation">Reservation</a></li>
                   <li class="nav-item"><a class="nav-link" href="/testimonials">Reviews</a></li>
                   <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
                </ul>

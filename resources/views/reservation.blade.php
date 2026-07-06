@@ -81,6 +81,11 @@
          </div>
       </nav>
        <!-- page banner -->
+        @if(session('success'))
+        <div style="background: #28a754;color:white;padding:15px;text-align:center;font-size:1rem;font-weight:600;">
+         ✅{{session('success')}}
+        </div>
+        @endif 
         <section style="background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0.6)),url('{{asset('img/banner-img.jpg')}}') center/cover no-repeat;padding:100px 0; text-align:center;">
             <h1 style="color:white;font-size:3rem;font-weight:700;">Our Reservation</h1>
             <p style="color:rgba(255,255,255,0.8);">Home &nbsp;>&nbsp; Reservation</p>
@@ -121,27 +126,28 @@
                      </div>
                   </div>
                </div>
+                
                <div class="col-lg-8" data-aos="fade-left">
                   <div class="fcard">
                      <div class="row g-3">
-                        <div class="col-sm-6"><label class="flbl">Full Name *</label><input type="text" class="fctrl" placeholder="John Doe"/></div>
-                        <div class="col-sm-6"><label class="flbl">Phone Number *</label><input type="tel" class="fctrl" placeholder="+1 (800) 000-0000"/></div>
-                        <div class="col-sm-6"><label class="flbl">Email Address *</label><input type="email" class="fctrl" placeholder="you@email.com"/></div>
+                        <div class="col-sm-6"><label class="flbl">Full Name *</label><input type="text" class="fctrl" placeholder="John Doe" id="resName"></div>
+                        <div class="col-sm-6"><label class="flbl">Phone Number *</label><input type="tel" class="fctrl" placeholder="+234 (800) 000-0000" id="resPhone"></div>
+                        <div class="col-sm-6"><label class="flbl">Email Address *</label><input type="email" class="fctrl" placeholder="you@email.com" id="resEmail"></div>
                         <div class="col-sm-6">
                            <label class="flbl">Number of Guests *</label>
-                           <select class="fctrl">
-                              <option>1 Person</option>
-                              <option>2 People</option>
-                              <option>3 - 4 People</option>
-                              <option>5 - 6 People</option>
-                              <option>7 -10 People</option>
-                              <option>10+ People</option>
+                           <select class="fctrl" id="resGuests" name="guests">
+                              <option value="1">1 Person</option>
+                              <option value="2">2 People</option>
+                              <option value="4">3 - 4 People</option>
+                              <option value="6">5 - 6 People</option>
+                              <option value="10">7 -10 People</option>
+                              <option value="11">10+ People</option>
                            </select>
                         </div>
-                        <div class="col-sm-6"><label class="flbl">Date *</label><input type="date" class="fctrl"/></div>
+                        <div class="col-sm-6"><label class="flbl">Date *</label><input type="date" class="fctrl" id="resDate"></div>
                         <div class="col-sm-6">
                            <label class="flbl">Time *</label>
-                           <select class="fctrl">
+                           <select class="fctrl" id="resTime">
                               <option>09:00 AM</option>
                               <option>10:00 AM</option>
                               <option>11:00 AM</option>
@@ -155,19 +161,46 @@
                               <option>10:00 PM</option>
                            </select>
                         </div>
-                        <div class="col-12"><label class="flbl">Special Requests</label><textarea class="fctrl" rows="3" placeholder="Allergies, dietary needs, special occasions..."></textarea></div>
-                        <div class="col-12"><button class="btn-red w-100 justify-content-center" id="resBtn"><i class="fas fa-calendar-check"></i>Confirm Reservation</button></div>
+                        <div class="col-12"><label class="flbl">Special Requests</label><textarea class="fctrl" rows="3" id="resMessage" placeholder="Allergies, dietary needs, special occasions..."></textarea></div>
+                        <div class="col-12"><button type="button" onclick="submitReservation()"class="btn-red w-100 justify-content-center" ><i class="fas fa-calendar-check"></i>Confirm Reservation</button></div>
                      </div>
-                     <div class="sucmsg" id="resOk">
-                        <i class="fas fa-check-circle"></i>
-                        <p>Table reserved! We'll confirm via email shortly.</p>
-                     </div>
+                     
                   </div>
                </div>
+                
             </div>
+            
          </div>
       </section>
       <div style="padding-bottom:60px;"></div>
+
+      <form id="reservationForm" action="/reservation" method="POST" style="display:none">
+         @csrf 
+         <input type="text" name="name" id="hName">
+         <input type="text" name="phone" id="hPhone">
+         <input type="email" name="email" id="hEmail">
+         <input type="text" name="guests" id="hGuests">
+         <input type="date" name="date" id="hDate">
+         <input type="text" name="time" id="hTime">
+         <input type="text" name="message" id="hmessage">
+
+      </form>
+
+
+      <script> 
+         function submitReservation(){
+            document.getElementById('hName').value = document.getElementById('resName').value;
+            document.getElementById('hPhone').value = document.getElementById('resPhone').value;
+            document.getElementById('hEmail').value = document.getElementById('resEmail').value;
+            document.getElementById('hGuests').value = document.getElementById('resGuests').value;
+            document.getElementById('hDate').value = document.getElementById('resDate').value;
+            document.getElementById('hTime').value = document.getElementById('resTime').value;
+            document.getElementById('hmessage').value = document.getElementById('resMessage').value;
+            document.getElementById('reservationForm').submit();
+         }
+      </script>
+         
+   
 	  
      
 

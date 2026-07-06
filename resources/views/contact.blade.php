@@ -82,6 +82,11 @@
       </nav>
 
       <!-- page banner -->
+       @if(session('success'))
+       <div style="background: green;color:white;padding:15px;font-weight:600;font-size:1rem; text-align:center;">
+         ✅{{session('success')}}
+       </div>
+       @endif 
        <section style="background: linear-gradient(rgba(0,0,0,0.6),rgba(9,0,0.6)),url('{{asset('img/banner-img.jpg')}}') center/cover no-repeat;padding:100px 0;text-align:center;">
         <h2 style="color: white; font-size:3rem;font-weight:700">Our Contact</h2>
         <p style="color:rgba(255,255,255,0.8)">Home &nbsp; > &nbsp; Contact</p>
@@ -131,12 +136,12 @@
                <div class="col-lg-8" data-aos="fade-left">
                   <div class="fcard">
                      <div class="row g-3">
-                        <div class="col-sm-6"><label class="flbl">Your Name *</label><input type="text" class="fctrl" placeholder="John Doe"/></div>
-                        <div class="col-sm-6"><label class="flbl">Email Address *</label><input type="email" class="fctrl" placeholder="you@email.com"/></div>
-                        <div class="col-sm-6"><label class="flbl">Phone Number</label><input type="tel" class="fctrl" placeholder="+1 (800) 000-0000"/></div>
+                        <div class="col-sm-6"><label class="flbl">Your Name *</label><input type="text" class="fctrl" placeholder="John Doe" id="resName"></div>
+                        <div class="col-sm-6"><label class="flbl">Email Address *</label><input type="email" class="fctrl" placeholder="you@email.com" id="resEmail"></div>
+                        <div class="col-sm-6"><label class="flbl">Phone Number</label><input type="tel" class="fctrl" placeholder="+234 (800) 000-0000" id="resPhone"></div>
                         <div class="col-sm-6">
                            <label class="flbl">Subject *</label>
-                           <select class="fctrl">
+                           <select class="fctrl" id="resSubject" name="subject">
                               <option>General Inquiry</option>
                               <option>Catering &amp; Events</option>
                               <option>Feedback</option>
@@ -144,8 +149,8 @@
                               <option>Media &amp; Press</option>
                            </select>
                         </div>
-                        <div class="col-12"><label class="flbl">Message *</label><textarea class="fctrl" rows="5" placeholder="Write your message here..."></textarea></div>
-                        <div class="col-12"><button class="btn-red" id="ctcBtn"><i class="fas fa-paper-plane"></i>Send Message</button></div>
+                        <div class="col-12"><label class="flbl">Message *</label><textarea class="fctrl" rows="5" id="resMessage" placeholder="Write your message here..."></textarea></div>
+                        <div class="col-12"><button type="button" onclick="submitContact()"class="btn-red" id="ctcBtn"><i class="fas fa-paper-plane"></i>Send Message</button></div>
                      </div>
                      <div class="sucmsg" id="ctcOk">
                         <i class="fas fa-check-circle"></i>
@@ -156,6 +161,27 @@
             </div>
          </div>
       </section>
+      <form id="contactForm" action="/contact" method="POST"style="display:none">
+         @csrf 
+         <input type="text" name="name" id="hName">
+         <input type="email" name="email" id="hEmail">
+         <input type="text" name="phone" id="hPhone">
+         <input type="text" name="subject" id="hSubject">
+         <input type="text" name="message" id="hmessage">
+
+
+      </form>
+
+      <script>
+      function submitContact() {
+         document.getElementById('hName').value = document.getElementById('resName').value;
+         document.getElementById('hEmail').value = document.getElementById('resEmail').value;
+         document.getElementById('hPhone').value = document.getElementById('resPhone').value;
+         document.getElementById('hSubject').value = document.getElementById('resSubject').value;
+         document.getElementById('hmessage').value = document.getElementById('resMessage').value;
+         document.getElementById('contactForm').submit()
+      }
+      </script>
 
        <!-- FOOTER -->
       <footer>
